@@ -21,9 +21,9 @@ class DnCNN(nn.Module):
         return y-out
 
 
-def conv(ni,nf): return nn.Conv2d(ni, nf, kernel_size=3, stride=1, padding=1)
-def conv2(ni,nf): return conv_layer(ni,nf,stride=1)
-def conv_and_res(ni,nf): return nn.Sequential(conv2(ni, nf), res_block(nf))
+# def conv(ni,nf): return nn.Conv2d(ni, nf, kernel_size=3, stride=1, padding=1)
+# def conv2(ni,nf): return conv_layer(ni,nf,stride=1)
+# def conv_and_res(ni,nf): return nn.Sequential(conv2(ni, nf), res_block(nf))
 
 class myDnCNN(nn.Module):
     def __init__(self, depth=17, n_channels=64, image_channels=1, use_bnorm=True, kernel_size=3):
@@ -32,13 +32,13 @@ class myDnCNN(nn.Module):
         padding = 1
         layers = []
         
-        layers.append(conv(ni=image_channels,nf=n_channels))
+        layers.append(self.conv(ni=image_channels,nf=n_channels))
         layers.append(nn.ReLU())
 
         for _ in range(depth-2):
-            layers.append(conv_and_res(ni=n_channels,nf=n_channels))
+            layers.append(self.conv_and_res(ni=n_channels,nf=n_channels))
             
-        layers.append(conv(ni=n_channels,nf=image_channels))
+        layers.append(self.conv(ni=n_channels,nf=image_channels))
         self.mydncnn = nn.Sequential(*layers)
         
 
@@ -46,3 +46,11 @@ class myDnCNN(nn.Module):
         y = x
         out = self.mydncnn(x)
         return y-out
+
+    
+    
+    def conv(self,ni,nf): return nn.Conv2d(ni, nf, kernel_size=3, stride=1, padding=1)
+    
+    def conv2(self,ni,nf): return conv_layer(ni,nf,stride=1)
+    
+    def conv_and_res(self,ni,nf): return nn.Sequential(self.conv2(ni, nf), res_block(nf))
