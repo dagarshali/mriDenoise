@@ -13,12 +13,11 @@ import nibabel as nib
 def ensure_dir(file_path):
   """ if the directory doesn't exist in the path given, 
   this function creates a directory"""
-
-    print("inside ensure_dir")
-    directory = os.path.dirname(file_path)
-    print(file_path)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+  print("inside ensure_dir")
+  directory = os.path.dirname(file_path)
+  print(file_path)
+  if not os.path.exists(directory):
+      os.makedirs(directory)
 
 
 
