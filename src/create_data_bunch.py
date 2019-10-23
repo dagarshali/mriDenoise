@@ -26,7 +26,7 @@ def get_y_fn(x):
     #fn = data_dir/'flair'/parent/f'{str(x.stem)[:10]}-FLAIR_reg_zscore.nii.gz'
     return fn
 
-def generate_data_bunch(path_to_train_data,path_to_target_data,rand_split=0.1,im_sz,bs):
+def generate_data_bunch(path_to_train_data,path_to_target_data,im_sz,bs,rand_split=0.1):
     """
     This function creates a databunch that is used by Fastai library to
     iterate through the dataset.
