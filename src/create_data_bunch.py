@@ -15,13 +15,27 @@ from PIL import Image
 import nibabel as nib
 import cls_for_reading_tif as clsRT
 
+# def get_y_fn(x):
+    
+#     parent = 'train' if 'train' in str(x) else 'valid'
+#     fn = path_to_groundtruth/x.name
+#     #print(fn)
+#     #fn = data_dir/'flair'/parent/f'{str(x.stem)[:10]}-FLAIR_reg_zscore.nii.gz'
+#     return fn
+
 def get_y_fn(x):
     """
     this function finds the files for the target images to create the dataset, which
     is then used to create the dataloaders
     """
     parent = 'train' if 'train' in str(x) else 'valid'
-    fn = path_to_groundtruth/x.name
+    fname = x.name.split('.')[0] + "_target.tif"
+    # print(x.stem)
+    #fn = path_to_groundtruth/x.name
+    path_target = Path("/Users/vishwanathsomashekar/Documents/Insight/mriDenoise/data/processed/target")
+    fn = path_target/fname
+#     print(fn)
+    #pdb.set_trace()
     #print(fn)
     #fn = data_dir/'flair'/parent/f'{str(x.stem)[:10]}-FLAIR_reg_zscore.nii.gz'
     return fn
@@ -53,7 +67,7 @@ def generate_data_bunch(path_to_train_data,path_to_target_data,im_sz,bs,rand_spl
     path_train = Path(path_to_train_data)
     path_target = Path(path_to_target_data)
     src = clsRT.TiffTiffList.from_folder(path_train).split_by_rand_pct(rand_split,seed=42)
-    tfms = tfms = get_transforms(max_rotate=20, max_zoom=1.3, max_lighting=None, max_warp=0.4,
+    new_tfms = get_transforms(max_rotate=20, max_zoom=1.3, max_lighting=None, max_warp=0.4,
                     p_affine=1., p_lighting=1.)
     data = (src.label_from_func(get_y_fn)
     .transform(new_tfms,size=im_sz, resize_method=ResizeMethod.SQUISH,tfm_y=True)
