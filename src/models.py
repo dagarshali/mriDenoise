@@ -1,3 +1,8 @@
+import torch
+import torchvision
+from torch import nn
+import fastai
+from fastai.vision import *
 class DnCNN(nn.Module):
     def __init__(self, depth=17, n_channels=64, image_channels=1, use_bnorm=True, kernel_size=3):
         super(DnCNN, self).__init__()
