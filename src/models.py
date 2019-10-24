@@ -30,8 +30,9 @@ class DnCNN(nn.Module):
 # def conv2(ni,nf): return conv_layer(ni,nf,stride=1)
 # def conv_and_res(ni,nf): return nn.Sequential(conv2(ni, nf), res_block(nf))
 
+
 class myDnCNN(nn.Module):
-    def __init__(self, depth=17, n_channels=64, image_channels=1, use_bnorm=True, kernel_size=3):
+    def __init__(self, depth=8, n_channels=64, image_channels=1, use_bnorm=True, kernel_size=3):
         super(myDnCNN, self).__init__()
         kernel_size = 3
         padding = 1
