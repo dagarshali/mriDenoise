@@ -57,7 +57,7 @@ def conv_niftti_2_tif(source,dest,axis,startVol,endVolume):
       imdata_for_tiff.save(fname)
 
 
-def conv_niftti_2_tif_noise_truth(source,zero_noise,dest_truth,dest_noise,axis,startVol,endVolume):
+def conv_niftti_2_tif_noise_truth(source,zero_noise,dest_train,dest_target,axis,startVol,endVolume):
   """
   Based on the parameters:
   source: location of the 3D nifti images
